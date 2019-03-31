@@ -1,6 +1,7 @@
 package kata.tennis.service.impl;
 
 import kata.tennis.service.DisplayScore;
+import kata.tennis.TennisMatchSimulator;
 import kata.tennis.model.Player;
 
 public class StandardMatchImpl implements DisplayScore {
@@ -11,7 +12,7 @@ public class StandardMatchImpl implements DisplayScore {
 	}
 	
 	@Override
-	public String displayScore(Player p1, Player p2) {
+	public String displayScore(Player p1, Player p2, TennisMatchSimulator tennisMatchSimulator) {
 		String display = "";
 		
 		if(p1.getGameScore() <= 3 && p1.getGameScore() <= 3) {
