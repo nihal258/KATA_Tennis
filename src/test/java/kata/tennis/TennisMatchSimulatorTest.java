@@ -45,7 +45,7 @@ public class TennisMatchSimulatorTest {
     	
     	p1.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
     	
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
@@ -61,7 +61,7 @@ public class TennisMatchSimulatorTest {
     	
     	p1.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
         
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
@@ -82,7 +82,7 @@ public class TennisMatchSimulatorTest {
     	
     	p1.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
         
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
@@ -102,7 +102,7 @@ public class TennisMatchSimulatorTest {
     	
     	p2.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
         
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
@@ -122,7 +122,7 @@ public class TennisMatchSimulatorTest {
     	
     	p1.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
         
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
@@ -142,7 +142,7 @@ public class TennisMatchSimulatorTest {
     	
     	p1.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
         
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
@@ -162,7 +162,7 @@ public class TennisMatchSimulatorTest {
     	
     	p1.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
         
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
@@ -184,10 +184,51 @@ public class TennisMatchSimulatorTest {
     	
     	p1.markOnePoint();
     	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2)).findAny();
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
         
         String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
     }
     
+    @Test
+    @Parameters({"3, 3, 5, 6, TieBreak Rule Activated"})
+    public void should_display_tie_break_match_activated_when_p1_is_6_and_p2_is_6(int player1gGamecore, int player2GameScore,
+    																		      int player1SetScore, int player2SetScore, String expectedScore)
+    {   	
+    	p1.setGameScore(player1gGamecore);
+    	p2.setGameScore(player2GameScore);
+    	
+    	p1.setSetScore(player1SetScore);
+    	p2.setSetScore(player2SetScore);
+    	
+    	tennisMatchSimulator.setTieBreak(true);
+    	
+    	p1.markOnePoint();
+    	
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
+        
+        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
+        Assert.assertEquals(expectedScore, actualScore);
+    }
+    
+    @Test
+    @Parameters({"3, 3, 6, 5, Player 1 win the TieBreak and the Set and the Match"})
+    public void should_display_tie_break_p1_win_tiebreak_when_p1_is_7_and_p2_is_5(int player1gGamecore, int player2GameScore,
+    																		      int player1SetScore, int player2SetScore, String expectedScore)
+    {   	
+    	p1.setGameScore(player1gGamecore);
+    	p2.setGameScore(player2GameScore);
+    	
+    	p1.setTieBreakScore(player1SetScore);
+    	p2.setTieBreakScore(player2SetScore);
+    	
+    	tennisMatchSimulator.setTieBreak(true);
+    	
+    	p1.markOnePoint();
+    	
+    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
+        
+        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
+        Assert.assertEquals(expectedScore, actualScore);
+    }    
 }

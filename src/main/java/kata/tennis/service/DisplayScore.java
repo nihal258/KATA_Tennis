@@ -9,7 +9,7 @@ public interface DisplayScore {
 	 * @param P2 : Second player
 	 * @return true if the play rule is actived
 	 */
-	boolean isActivated(Player p1, Player p2);
+	boolean isActivated(Player p1, Player p2, TennisMatchSimulator tennisMatchSimulator);
 	
 	/**
 	 * @param P1 : First player

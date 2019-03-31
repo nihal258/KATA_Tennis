@@ -10,6 +10,8 @@ import lombok.Data;
 public class Player {
 	private Integer gameScore=0;
 	private Integer setScore=0;
+	private Integer tieBreakScore=0;
+	
 	private boolean adv=false;
 	
 	public Player() {
@@ -17,6 +19,10 @@ public class Player {
 	
 	public void resetAllScores () {
 		this.gameScore = 0;
+		this.setScore = 0;
+		this.tieBreakScore = 0;
+		
+		this.adv = false;
 	}
 	
 	public void markOnePoint () {
@@ -25,6 +31,7 @@ public class Player {
 		if (this.gameScore > 3) {
         	this.adv = true;
         	this.setScore ++;
+        	this.tieBreakScore ++;
 		}
     }
 	

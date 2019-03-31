@@ -9,6 +9,7 @@ import kata.tennis.service.DisplayScore;
 import kata.tennis.service.impl.DeuceMatchImpl;
 import kata.tennis.service.impl.SetMatchImpl;
 import kata.tennis.service.impl.StandardMatchImpl;
+import kata.tennis.service.impl.TieBreakImpl;
 
 /**
  * @author Nihal
@@ -18,8 +19,18 @@ public class TennisMatchSimulator
 {
 	private List<Player> players = new ArrayList<Player>();
 	private List<DisplayScore> displays = new ArrayList<DisplayScore>();
-	private boolean newMatchOn = false;
 	
+	private boolean newMatchOn = false;
+	private boolean tieBreak = false;
+	
+	public boolean isTieBreak() {
+		return tieBreak;
+	}
+
+	public void setTieBreak(boolean tieBreak) {
+		this.tieBreak = tieBreak;
+	}
+
 	public boolean isNewMatchOn() {
 		return newMatchOn;
 	}
@@ -41,7 +52,7 @@ public class TennisMatchSimulator
 	 */
 	public TennisMatchSimulator(Player player1, Player player2) {
 		this.players = Arrays.asList(player1, player2);
-		this.displays = Arrays.asList(new StandardMatchImpl(), new DeuceMatchImpl(), new SetMatchImpl());
+		this.displays = Arrays.asList(new StandardMatchImpl(), new DeuceMatchImpl(), new SetMatchImpl(), new TieBreakImpl());
 	}
 	
 	/**

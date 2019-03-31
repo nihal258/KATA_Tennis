@@ -7,7 +7,7 @@ import kata.tennis.service.DisplayScore;
 public class DeuceMatchImpl implements DisplayScore {
 
 	@Override
-	public boolean isActivated(Player p1, Player p2) {
+	public boolean isActivated(Player p1, Player p2, TennisMatchSimulator tennisMatchSimulators) {
 		return ((p1.getGameScore() >= 3 && p2.getGameScore() >= 3)
 				&& (p1.getSetScore()== 0 && p2.getSetScore() == 0));
 	}
