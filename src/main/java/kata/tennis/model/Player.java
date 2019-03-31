@@ -9,6 +9,7 @@ import lombok.Data;
 @Data
 public class Player {
 	private Integer gameScore=0;
+	private boolean adv=false;
 	
 	public Player() {
 	}
@@ -18,7 +19,10 @@ public class Player {
 	}
 	
 	public void markOnePoint () {
-        this.gameScore++;
+		this.gameScore++;
+		
+		if (this.gameScore > 3) 
+        	this.adv = true;
     }
 	
 	public String getScoreGameFromPoint() {

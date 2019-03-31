@@ -7,7 +7,7 @@ public class StandardMatchImpl implements DisplayScore {
 	
 	@Override
 	public boolean isActivated(Player p1, Player p2) {
-		return true;
+		return (p1.getGameScore() <= 3 && p2.getGameScore() <= 3);
 	}
 	
 	@Override

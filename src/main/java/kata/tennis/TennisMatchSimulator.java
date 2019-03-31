@@ -6,6 +6,7 @@ import java.util.List;
 
 import kata.tennis.model.Player;
 import kata.tennis.service.DisplayScore;
+import kata.tennis.service.impl.DeuceMatchImpl;
 import kata.tennis.service.impl.StandardMatchImpl;
 
 /**
@@ -30,7 +31,7 @@ public class TennisMatchSimulator
 	 */
 	public TennisMatchSimulator(Player player1, Player player2) {
 		this.players = Arrays.asList(player1, player2);
-		this.displays = Arrays.asList(new StandardMatchImpl());
+		this.displays = Arrays.asList(new StandardMatchImpl(), new DeuceMatchImpl());
 	}
 	
 	/**
