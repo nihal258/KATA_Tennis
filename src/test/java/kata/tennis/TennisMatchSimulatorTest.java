@@ -1,7 +1,5 @@
 package kata.tennis;
 
-import java.util.Optional;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,9 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import kata.tennis.model.Player;
-import kata.tennis.service.DisplayScore;
 
 /**
  * Unit test for Tennis Match Simulator.
@@ -26,209 +22,33 @@ public class TennisMatchSimulatorTest {
     
     @Before
     public void setUp() {
-    	p1 = new Player();
-    	p2 = new Player();
-    	tennisMatchSimulator = new TennisMatchSimulator(p1, p2);
+    	this.p1 = new Player();
+    	this.p2 = new Player();
+    	this.tennisMatchSimulator = new TennisMatchSimulator(this.p1, this.p2);
     }
     
     @After
     public void resetAllPlayersScores () {
     	tennisMatchSimulator.resetAllPlayersScores();
     }
-    
+  
     @Test
-    @Parameters({"2, 3, Actual Score : 40-40"})
-    public void should_display_standard_match_40_40_when_p1_win_one_point(int player1Score, int player2Score, String expectedScore) 
-    {   	
-    	p1.setGameScore(player1Score);
-    	p2.setGameScore(player2Score);
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-    	
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
+    public void it_should_start_with_zero_score() {
+	    Assert.assertEquals(0, p1.getGameScore().intValue());
+	    Assert.assertEquals(0, p2.getGameScore().intValue());
     }
-    
-    /** Test not more applicable in Sprint 2*/
-    /*@Test
-    @Parameters({"3, 3, Player 1 win the game"})
-    public void should_display_standard_match_p1_is_the_winner_when_p1_win_one_point(int player1Score, int player2Score, 
-    																				 String expectedScore) {   	
-    	p1.setGameScore(player1Score);
-    	p2.setGameScore(player2Score);
-    	
+
+    @Test
+    public void it_should_display_players_score() {
     	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }*/
-    
-    /** Deuce Tests not more applicables in Sprint 3*/
-    /*@Test
-    @Parameters({"3, 3, false, false, Player 1 win the ADV"})
-    public void should_display_deuce_match_p1_win_adv_when_p1_win_one_point(int player1Score, int player2Score,
-    																		 boolean player1Adv, boolean player2Adv, 
-    																		 String expectedScore) 
-    {   	
-    	p1.setGameScore(player1Score);
-    	p2.setGameScore(player2Score);
-     	
-    	p1.setAdv(player1Adv);
-    	p2.setAdv(player2Adv);
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
+	    p2.markOnePoint();
+	    p1.markOnePoint();
+	
+	    Assert.assertEquals("30-15", p1.getScoreGameFromPoint()+"-"+p2.getScoreGameFromPoint());
     }
     
     @Test
-    @Parameters({"4, 3, true, false, Actual Score : Deuce - Deuce"})
-    public void should_display_deuce_match_deuce_deuce_when_p2_win_one_point(int player1Score, int player2Score,
-    																		 boolean player1Adv, boolean player2Adv, 
-    																		 String expectedScore) 
-    {   	
-    	p1.setGameScore(player1Score);
-    	p2.setGameScore(player2Score);
-    	
-    	p1.setAdv(player1Adv);
-    	p2.setAdv(player2Adv);
-    	
-    	p2.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
+    public void it_should_have_no_more_than_2_players() {
+	    Assert.assertEquals(2, tennisMatchSimulator.getPlayers().size());
     }
-    
-    @Test
-    @Parameters({"5, 4, true, false, Player 1 win the game"})
-    public void should_display_deuce_match_p1_win_the_match_when_p1_win_one_point(int player1Score, int player2Score,
-    																		      boolean player1Adv, boolean player2Adv, 
-    																		      String expectedScore)
-    {   	
-    	p1.setGameScore(player1Score);
-    	p2.setGameScore(player2Score);
-    	
-    	p1.setAdv(player1Adv);
-    	p2.setAdv(player2Adv);
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }*/
-    
-    @Test
-    @Parameters({"3, 3, 5, 3, Player 1 win the Set"})
-    public void should_display_set_match_p1_win_the_set_when_p1_is_6_and_p2_is_3(int player1gGamecore, int player2GameScore,
-    																		     int player1SetScore, int player2SetScore, 
-    																		     String expectedScore)
-    {   	
-    	p1.setGameScore(player1gGamecore);
-    	p2.setGameScore(player2GameScore);
-    	
-    	p1.setSetScore(player1SetScore);
-    	p2.setSetScore(player2SetScore);    	
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }
-    
-    @Test
-    @Parameters({"3, 3, 5, 5, A new match must be player and the first player who reach the score of 7 wins the match"})
-    public void should_display_set_match_new_match_when_p1_is_6_and_p2_is_5(int player1gGamecore, int player2GameScore,
-    																		int player1SetScore, int player2SetScore, 
-    																		String expectedScore)
-    {   	
-    	p1.setGameScore(player1gGamecore);
-    	p2.setGameScore(player2GameScore);
-    	
-    	p1.setSetScore(player1SetScore);
-    	p2.setSetScore(player2SetScore);    	
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }
-    
-    @Test
-    @Parameters({"3, 3, 6, 3, true, Player 1 win the Match"})
-    public void should_display_set_match_p1_win_the_match_when_p1_is_7_and_p2_is_3_and_new_match(int player1gGamecore, int player2GameScore,
-    																		     				 int player1SetScore, int player2SetScore, 
-    																		     				 boolean newMatch, String expectedScore)
-    {   	
-    	p1.setGameScore(player1gGamecore);
-    	p2.setGameScore(player2GameScore);
-    	
-    	p1.setSetScore(player1SetScore);
-    	p2.setSetScore(player2SetScore);
-    	
-    	tennisMatchSimulator.setNewMatchOn(newMatch);
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }
-    
-    @Test
-    @Parameters({"3, 3, 5, 6, TieBreak Rule Activated"})
-    public void should_display_tie_break_match_activated_when_p1_is_6_and_p2_is_6(int player1gGamecore, int player2GameScore,
-    																		      int player1SetScore, int player2SetScore, String expectedScore)
-    {   	
-    	p1.setGameScore(player1gGamecore);
-    	p2.setGameScore(player2GameScore);
-    	
-    	p1.setSetScore(player1SetScore);
-    	p2.setSetScore(player2SetScore);
-    	
-    	tennisMatchSimulator.setTieBreak(true);
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }
-    
-    @Test
-    @Parameters({"3, 3, 6, 5, Player 1 win the TieBreak and the Set and the Match"})
-    public void should_display_tie_break_p1_win_tiebreak_when_p1_is_7_and_p2_is_5(int player1gGamecore, int player2GameScore,
-    																		      int player1SetScore, int player2SetScore, String expectedScore)
-    {   	
-    	p1.setGameScore(player1gGamecore);
-    	p2.setGameScore(player2GameScore);
-    	
-    	p1.setTieBreakScore(player1SetScore);
-    	p2.setTieBreakScore(player2SetScore);
-    	
-    	tennisMatchSimulator.setTieBreak(true);
-    	
-    	p1.markOnePoint();
-    	
-    	Optional<DisplayScore> play = tennisMatchSimulator.getDisplays().stream().filter(d -> d.isActivated(p1, p2, tennisMatchSimulator)).findAny();
-        
-        String actualScore = play.get().displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }    
 }

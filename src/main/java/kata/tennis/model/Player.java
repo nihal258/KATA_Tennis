@@ -26,12 +26,12 @@ public class Player {
 	}
 	
 	public void markOnePoint () {
-		this.gameScore ++;
+		this.gameScore = this.gameScore +1;
 		
 		if (this.gameScore > 3) {
         	this.adv = true;
-        	this.setScore ++;
-        	this.tieBreakScore ++;
+        	this.setScore = this.setScore +1;
+        	this.tieBreakScore = this.tieBreakScore +1;
 		}
     }
 	
@@ -46,7 +46,7 @@ public class Player {
 	            case 3:
 	                return "40";
 	            default:
-	                return null;
+	                return "not found";
 	        }
 	}
 }

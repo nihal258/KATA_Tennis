@@ -4,12 +4,6 @@ import kata.tennis.TennisMatchSimulator;
 import kata.tennis.model.Player;
 
 public interface DisplayScore {
-	/**
-	 * @param P1 : First player
-	 * @param P2 : Second player
-	 * @return true if the play rule is actived
-	 */
-	boolean isActivated(Player p1, Player p2, TennisMatchSimulator tennisMatchSimulator);
 	
 	/**
 	 * @param P1 : First player
