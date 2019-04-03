@@ -8,13 +8,16 @@ import lombok.Data;
  */
 @Data
 public class Player {
+	private String name;
+	
 	private Integer gameScore=0;
 	private Integer setScore=0;
 	private Integer tieBreakScore=0;
 	
 	private boolean adv=false;
 	
-	public Player() {
+	public Player(String name) {
+		this.name = name;
 	}
 	
 	public void resetAllScores () {

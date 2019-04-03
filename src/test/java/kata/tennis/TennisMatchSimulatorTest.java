@@ -22,8 +22,8 @@ public class TennisMatchSimulatorTest {
     
     @Before
     public void setUp() {
-    	this.p1 = new Player();
-    	this.p2 = new Player();
+    	this.p1 = new Player("Player 1");
+    	this.p2 = new Player("Player 2");
     	this.tennisMatchSimulator = new TennisMatchSimulator(this.p1, this.p2);
     }
     

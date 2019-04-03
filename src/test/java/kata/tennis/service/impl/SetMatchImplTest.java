@@ -25,8 +25,8 @@ public class SetMatchImplTest {
     
     @Before
     public void setUp() {
-    	p1 = new Player();
-    	p2 = new Player();
+    	p1 = new Player("Player 1");
+    	p2 = new Player("Player 2");
     	tennisMatchSimulator = new TennisMatchSimulator(p1, p2);
     }
     

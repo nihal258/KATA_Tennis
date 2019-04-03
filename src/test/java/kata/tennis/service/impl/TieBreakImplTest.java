@@ -24,8 +24,8 @@ public class TieBreakImplTest {
     
     @Before
     public void setUp() {
-    	p1 = new Player();
-    	p2 = new Player();
+    	p1 = new Player("Player 1");
+    	p2 = new Player("Player 2");
     	tennisMatchSimulator = new TennisMatchSimulator(p1, p2);
     }
     
@@ -47,26 +47,4 @@ public class TieBreakImplTest {
         String actualScore = play.displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
     }
-    
-    /*@Test
-    @Parameters({"3, 3, 5, 6, Player 1 win the TieBreak and the Set and the Match"})
-    public void should_display_tie_break_p1_win_tiebreak_when_p1_is_7_and_p2_is_6(int player1gGamecore, int player2GameScore,
-    																		      int player1SetScore, int player2SetScore, String expectedScore)
-    {   	
-    	p1.setGameScore(player1gGamecore);
-    	p2.setGameScore(player2GameScore);
-    	
-    	p1.setTieBreakScore(player1SetScore);
-    	p2.setTieBreakScore(player2SetScore);
-    	
-    	p1.markOnePoint();
-    	
-    	p1.setAdv(false);
-    	p2.setAdv(false);
-    	
-    	DisplayScore play = tennisMatchSimulator.getDisplayScore();
-    	
-        String actualScore = play.displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }*/
 }

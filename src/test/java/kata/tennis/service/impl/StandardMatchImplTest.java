@@ -23,8 +23,8 @@ public class StandardMatchImplTest {
     
     @Before
     public void setUp() {
-    	p1 = new Player();
-    	p2 = new Player();
+    	p1 = new Player("Player 1");
+    	p2 = new Player("Player 2");
     	tennisMatchSimulator = new TennisMatchSimulator(p1, p2);
     }
     
@@ -42,20 +42,4 @@ public class StandardMatchImplTest {
         String actualScore = play.displayScore(p1, p2, tennisMatchSimulator);        
         Assert.assertEquals(expectedScore, actualScore);
     }
-	    
-    /** Test not more applicable in Sprint 2*/
-    /*@Test
-    @Parameters({"3, 3, Player 1 win the game"})
-    public void should_display_standard_match_p1_is_the_winner_when_p1_win_one_point(int player1Score, int player2Score, String expectedScore) {   	
-    	p1.setGameScore(player1Score);
-    	p2.setGameScore(player2Score);
-    	
-    	p1.markOnePoint();
-    	
-    	DisplayScore play = tennisMatchSimulator.getDisplayScore();
-        
-        String actualScore = play.displayScore(p1, p2, tennisMatchSimulator);        
-        Assert.assertEquals(expectedScore, actualScore);
-    }*/
-
 }
